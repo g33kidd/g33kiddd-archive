@@ -12,6 +12,7 @@
     "apollo-client": "^2.4.3",
     "apollo-link-http": "^1.5.5",
     "apollo-link-ws": "^1.0.9",
+    "babel-plugin-import-graphql": "^2.6.2",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
     "phoenix": "file:../deps/phoenix",
@@ -19,6 +20,8 @@
     "react": "^16.6.0",
     "react-apollo": "^2.2.4",
     "react-dom": "^16.6.0",
+    "react-router-dom": "^4.3.1",
+    "styled-components": "^4.0.2",
     "subscriptions-transport-ws": "^0.9.15"
   },
   "devDependencies": {

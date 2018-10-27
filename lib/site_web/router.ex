@@ -13,12 +13,6 @@ defmodule SiteWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", SiteWeb do
-    pipe_through :browser
-
-    get "/", PageController, :index
-  end
-
   # GraphQL API endpoint.
   forward "/api", Absinthe.Plug, schema: SiteWeb.Schema
 
@@ -27,8 +21,9 @@ defmodule SiteWeb.Router do
     forward "/gql", Absinthe.Plug.GraphiQL, schema: SiteWeb.Schema
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", SiteWeb do
-  #   pipe_through :api
-  # end
+  scope "/", SiteWeb do
+    pipe_through :browser
+
+    get "/*all", PageController, :index
+  end
 end

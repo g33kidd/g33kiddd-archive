@@ -1,0 +1,8 @@
+query PublishedPosts {
+  publishedPosts {
+    id
+    title
+    body
+    slug
+  }
+}

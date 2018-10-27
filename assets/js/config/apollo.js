@@ -7,7 +7,7 @@ import * as AbsintheSocket from "@absinthe/socket";
 import { createAbsintheSocketLink } from "@absinthe/socket-apollo-link";
 import { Socket as PhoenixSocket } from "phoenix";
 
-export default (createApolloClient = () => {
+export default () => {
   const app_url =
     process.env.NODE_ENV !== "production" ? "localhost:4000" : "g33kidd.com";
 
@@ -37,4 +37,4 @@ export default (createApolloClient = () => {
     link,
     cache: new InMemoryCache()
   });
-});
+};

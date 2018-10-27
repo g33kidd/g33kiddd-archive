@@ -12,48 +12,52 @@ defmodule SiteWeb.Schema do
 
   @desc "This is a Post!"
   object :post do
-    field(:id, :id)
-    field(:title, :string)
-    field(:body, :string)
-    field(:slug, :string)
-    field(:category, :category)
+    field :id, :id
+    field :title, :string
+    field :body, :string
+    field :slug, :string
+    field :category, :category
   end
 
   @desc "This is a category!"
   object :category do
-    field(:id, :id)
-    field(:name, :string)
+    field :id, :id
+    field :name, :string
   end
 
   query do
     @desc "Gets a list of all posts on the site."
     field :posts, list_of(:post) do
-      resolve(&Resolvers.Blog.list_posts/3)
+      resolve &Resolvers.Blog.list_posts/3
     end
 
     @desc "Gets a list of all published posts on the site."
     field :published_posts, list_of(:post) do
-      resolve(&Resolvers.Blog.list_posts/3)
+      resolve &Resolvers.Blog.list_published_posts/3
     end
   end
 
   mutation do
     @desc "Creates a new post."
     field :create_post, :post do
-      arg(:title, non_null(:string))
-      arg(:body, non_null(:string))
-      arg(:slug, non_null(:string))
+      arg :title, non_null(:string)
+      arg :body, non_null(:string)
+      arg :slug, non_null(:string)
+      arg :published, :boolean
 
-      resolve(&Resolvers.Blog.create_post/3)
+      resolve &Resolvers.Blog.create_post/3
     end
   end
 
   subscription do
     @desc "Subscription for listening when a new post is created."
     field :post_created, :post do
-      config(fn _args, _ -> {:ok, "posts"} end)
-      trigger(:create_post, topic: "posts")
-      resolve(&Resolvers.Blog.on_post_created/3)
+      config fn _args, _ ->
+        {:ok, topic: "posts"}
+      end
+
+      trigger :create_post, topic: "posts"
+      resolve &Resolvers.Blog.on_post_created/3
     end
   end
 end
