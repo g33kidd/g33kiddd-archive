@@ -4,5 +4,6 @@ query PublishedPosts {
     title
     body
     slug
+    featured_image_url
   }
 }

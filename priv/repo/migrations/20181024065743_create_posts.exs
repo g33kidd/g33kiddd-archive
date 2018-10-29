@@ -6,6 +6,8 @@ defmodule Site.Repo.Migrations.CreatePosts do
       add :title, :string
       add :body, :text
       add :slug, :string
+      add :published, :boolean
+      add :feature_image_url, :string
       add :user_id, references(:users, on_delete: :nothing)
 
       timestamps()

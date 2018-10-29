@@ -13,6 +13,10 @@ defmodule SiteWeb.Resolvers.Blog do
     {:ok, Blog.list_published_posts()}
   end
 
+  def find_post(_parent, %{slug: slug}, _resolution) do
+    {:ok, Blog.find_post_by_slug(slug)}
+  end
+
   def on_post_created(post, _args, _resolution) do
     {:ok, post}
   end

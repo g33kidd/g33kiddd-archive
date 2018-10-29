@@ -1,5 +1,5 @@
 query AllPosts {
-  allPosts {
+  posts {
     id
     title
     body

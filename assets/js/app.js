@@ -5,7 +5,7 @@ import { ApolloProvider, Subscription } from "react-apollo";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import createApolloClient from "./config/apollo";
 import Header from "./components/header";
-import { createGlobalStyle } from "styled-components";
+import GlobalStyle from "./config/style";
 
 // const Root = () => (
 //   <Subscription subscription={TEST_SUBSCRIPTION}>
@@ -19,15 +19,19 @@ import { createGlobalStyle } from "styled-components";
 // TODO: Extract the router stuff into its own component!
 
 import Home from "./components/home";
-
-const GlobalStyle = createGlobalStyle`
-  
-`;
+import navigation, { map } from "./config/navigation";
 
 const Footer = () => <div>Hello foot!</div>;
 const Routes = () => (
   <Fragment>
-    <Route path="/" exact component={Home} />
+    {map(navigation, (path, item, i) => (
+      <Route
+        path={path}
+        exact={item.exact}
+        component={item.component}
+        key={i}
+      />
+    ))}
   </Fragment>
 );
 

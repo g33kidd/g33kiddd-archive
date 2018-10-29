@@ -46,6 +46,11 @@ defmodule Site.Blog.Post do
       where: post.published == true
   end
 
+  def with_slug(query, slug) do
+    from post in query,
+      where: post.slug == ^slug
+  end
+
   defp add_slug(changeset) do
     case get_field(changeset, :slug) do
       nil ->
