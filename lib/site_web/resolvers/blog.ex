@@ -1,8 +1,8 @@
 defmodule SiteWeb.Resolvers.Blog do
   alias Site.Blog
 
-  def create_post(_parent, %{title: title, body: body}, _resolution) do
-    {:ok, %{title: title, body: body}}
+  def create_post(_parent, post_params, _resolution) do
+    Blog.create_post(post_params)
   end
 
   def list_posts(_parent, _args, _resolution) do

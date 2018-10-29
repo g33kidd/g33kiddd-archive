@@ -2,9 +2,18 @@ import React, { Component, Fragment } from "react";
 import { Editor } from "slate-react";
 import { Value } from "slate";
 import { Route, Link } from "react-router-dom";
-import { Query } from "react-apollo";
+import { Query, Subscription } from "react-apollo";
 import PublishedPosts from "gql/queries/AllPosts.graphql";
 import FindPost from "gql/queries/FindPost.graphql";
+import PostCreated from "gql/subscriptions/PostCreated.graphql";
+
+/**
+ * TODO: Move the initialValue stuff to an Admin page or something. Start working on an editor!
+ *
+ * TODO: Move main posts query to the top level and pass it down? Maybe this could work for
+ * TODO caching of posts and instead of going out to make another request when clicking on a post it'll load from cache.
+ *
+ */
 
 const initialValue = Value.fromJSON({
   document: {
@@ -65,6 +74,14 @@ class Blog extends Component {
         <Link to={`${url}/this-is-a-post`}>Post Link</Link>
         <Route path={`${path}/:id`} component={Post} />
         <Route exact path={path} render={this.renderBlog} />
+        <Subscription subscription={PostCreated}>
+          {({ data, loading }) => {
+            if (data === "undefined") return;
+            if (loading) return "Loading...";
+
+            return <h4>New post: {!loading && data.postCreated.title}</h4>;
+          }}
+        </Subscription>
       </Fragment>
     );
   }

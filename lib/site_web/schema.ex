@@ -63,7 +63,9 @@ defmodule SiteWeb.Schema do
         {:ok, topic: "posts"}
       end
 
-      trigger :create_post, topic: "posts"
+      trigger :create_post, topic: fn post ->
+        "posts"
+      end
       resolve &Resolvers.Blog.on_post_created/3
     end
   end
