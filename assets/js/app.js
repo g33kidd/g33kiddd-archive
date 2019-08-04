@@ -21,7 +21,28 @@ import GlobalStyle from "./config/style";
 import Home from "./components/home";
 import navigation, { map } from "./config/navigation";
 
-const Footer = () => <div>Hello foot!</div>;
+const admin = window.adminpage;
+const setup = window.setup;
+const app = !admin || !setup;
+
+// Setup the apollo client.
+const client = createApolloClient();
+
+const AdminApplication = () => {
+
+}
+
+const SetupApplication = () => {
+  return (
+    <ApolloProvider client={client}>
+      <Fragment>
+        <div className="contaienr mx-auto">Test</div>
+      </Fragment>
+    </ApolloProvider>
+  );
+}
+
+
 const Routes = () => (
   <Fragment>
     {map(navigation, (path, item, i) => (
@@ -35,7 +56,6 @@ const Routes = () => (
   </Fragment>
 );
 
-const client = createApolloClient();
 const Application = () => {
   return (
     <ApolloProvider client={client}>
@@ -43,7 +63,6 @@ const Application = () => {
         <Fragment>
           <Header />
           <Routes />
-          <Footer />
           <GlobalStyle />
         </Fragment>
       </Router>
@@ -51,4 +70,10 @@ const Application = () => {
   );
 };
 
-render(<Application />, document.getElementById("app"));
+const getApplication = () => {
+  if (app) return <Application />;
+  if (setup) return <SetupApplication />;
+  if (admin) return <AdminApplication />;
+}
+
+render(getApplication(), document.getElementById("app"));

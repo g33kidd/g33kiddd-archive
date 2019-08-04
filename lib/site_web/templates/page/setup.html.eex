@@ -8,6 +8,7 @@
   </head>
   <body>
     <section id="app"></section>
-    <script type="text/javascript" src='<%= Routes.static_path(@conn, "/js/app.js") %>'></script>
+    <script type="text/javascript">window.setup = true;</script>
+    <script type="text/javascript" src='<%= Routes.static_path(@conn, "/js/setup.js") %>'></script>
   </body>
 </html>

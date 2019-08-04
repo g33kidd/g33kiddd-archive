@@ -4,15 +4,18 @@ import { NavLink } from "react-router-dom";
 import navigation, { map } from "config/navigation";
 
 const HeaderBar = styled.div`
-  background: #eee;
-  padding: 10px 0;
+  background: #042f4b;
+  padding: 24px 0;
 `;
 
 const HeaderLink = styled(NavLink)`
-  color: blue;
+  color: #fff6da;
   padding: 5px 10px;
+  text-transform: uppercase;
+  font-size: 16px;
   &.active {
-    color: red;
+    color: #fbc99d;
+    font-weight: bold;
   }
 `;
 
@@ -24,6 +27,12 @@ export default class Header extends Component {
       </HeaderLink>
     ));
 
-    return <HeaderBar>{links}</HeaderBar>;
+    return (
+      <HeaderBar>
+        <div className="container mx-auto">
+          {links}
+        </div>
+      </HeaderBar>
+    );
   }
 }

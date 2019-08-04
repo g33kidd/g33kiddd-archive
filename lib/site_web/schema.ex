@@ -10,6 +10,13 @@ defmodule SiteWeb.Schema do
   # Discord Stuff
   # Code editing stuff like WakaTime
 
+  @desc "The user object!"
+  object :user do
+    field :id, :id
+    field :username, :string
+    field :email, :string
+  end
+
   @desc "This is a Post!"
   object :post do
     field :id, :id
@@ -45,6 +52,19 @@ defmodule SiteWeb.Schema do
   end
 
   mutation do
+    @desc "Setup the site, create an admin user."
+    field :setup, :user do
+      arg :sitename, non_null(:string)
+      arg :description, non_null(:string)
+      # add some other fields here for "customization" features.
+
+      arg :username, non_null(:string)
+      arg :email, non_null(:string)
+      arg :password, non_null(:string)
+
+      resolve &Resolvers.Site.setup/3
+    end
+
     @desc "Creates a new post."
     field :create_post, :post do
       arg :title, non_null(:string)
@@ -63,7 +83,7 @@ defmodule SiteWeb.Schema do
         {:ok, topic: "posts"}
       end
 
-      trigger :create_post, topic: fn post ->
+      trigger :create_post, topic: fn _post ->
         "posts"
       end
       resolve &Resolvers.Blog.on_post_created/3

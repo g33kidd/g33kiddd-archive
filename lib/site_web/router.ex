@@ -21,6 +21,11 @@ defmodule SiteWeb.Router do
     forward "/gql", Absinthe.Plug.GraphiQL, schema: SiteWeb.Schema
   end
 
+  scope "/admin", SiteWeb do
+    pipe_through :browser
+    get "/*all", PageController, :admin
+  end
+
   scope "/", SiteWeb do
     pipe_through :browser
 
