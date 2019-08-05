@@ -6,3 +6,5 @@
 @tailwind utilities;
 
 @import "./phoenix.css";
+@import "./global.css";
+@import "./screen.css";

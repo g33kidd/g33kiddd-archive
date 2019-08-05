@@ -2,7 +2,6 @@ defmodule Site.Accounts do
   alias Site.Repo
   alias Site.Accounts.User
 
-
   def create_user(user_params) do
     %User{}
     |> User.changeset(user_params)

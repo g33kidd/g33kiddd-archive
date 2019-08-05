@@ -13,10 +13,12 @@ module.exports = (env, options) => ({
     ]
   },
   entry: {
-    "./js/app.js": ["./js/app.js"].concat(glob.sync("./vendor/**/*.js"))
+    main: ["./js/apps/main.js"].concat(glob.sync("./vendor/**/*.js")),
+    admin: ["./js/apps/admin.js"].concat(glob.sync("./vendor/**/*.js")),
+    setup: ["./js/apps/setup.js"].concat(glob.sync("./vendor/**/*.js"))
   },
   output: {
-    filename: "app.js",
+    filename: "[name].js",
     path: path.resolve(__dirname, "../priv/static/js")
   },
   module: {
@@ -32,8 +34,8 @@ module.exports = (env, options) => ({
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          { loader: 'css-loader', options: { importLoaders: 1 } },
-          'postcss-loader'
+          { loader: "css-loader", options: { importLoaders: 1 } },
+          "postcss-loader"
         ]
       }
     ]
